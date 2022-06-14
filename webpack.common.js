@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    main: { import: './src/index.js' },
+    main: { import: './src/index.tsx' },
   },
   output: {
     filename: '[name].[hash].js',
@@ -14,9 +14,9 @@ module.exports = {
     rules: [
       {
         //  jsx/polyfills
-        test: /\.(js)$/i,
+        test: /\.(jsx?|tsx?)$/i,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ['ts-loader', 'babel-loader'],
       },
       {
         // css/sass extract+compile
