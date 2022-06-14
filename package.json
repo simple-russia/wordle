@@ -1,0 +1,20 @@
+{
+  "name": "wordle",
+  "version": "1.0.0",
+  "description": "This project is a TypeScript/React implementation of the popular NYT game \"Wordle\".\r The motivation behind this project is to gain some practical experience of working with TS/Redux Thunk/setting up webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simple-russia/wordle.git"
+  },
+  "keywords": ["wordle", "typescript", "react", "redux"],
+  "author": "Alexei Isaev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simple-russia/wordle/issues"
+  },
+  "homepage": "https://github.com/simple-russia/wordle#readme"
+}
