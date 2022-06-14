@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    font-family: Arial;
+}
+
+*, *:hover, *:focus, *:active {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
