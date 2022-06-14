@@ -12,12 +12,21 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js', '.json', '.tsx'],
+    alias: {
+      src: path.resolve(__dirname, 'src/'),
+    },
   },
   module: {
     rules: [
       {
+        // typescript
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         //  jsx/polyfills
-        test: /\.(jsx?|tsx?)$/i,
+        test: /\.jsx?$/i,
         exclude: /node_modules/,
         use: ['ts-loader', 'babel-loader'],
       },
