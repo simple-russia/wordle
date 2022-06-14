@@ -10,6 +10,9 @@ module.exports = {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build'),
   },
+  resolve: {
+    extensions: ['.ts', '.js', '.json', '.tsx'],
+  },
   module: {
     rules: [
       {
