@@ -1,15 +1,17 @@
 import React from "react"
+import styles from './lettercells.module.css';
 
 interface iProps {
     word: string,
+    guessedWord: string,
 }
 
-const SubmittedWord = ({word}: iProps): JSX.Element => {
+const SubmittedWord = ({guessedWord, word}: iProps): JSX.Element => {
   return (
-    <div>
+    <div className={styles.letter_row}>
     {
         Array.from(word).map( (i, index) => {
-            return <span key={index}>{i}</span>
+            return <span className={styles.letter_cell} key={index}>{i}</span>
         })
     }
     </div>

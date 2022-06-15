@@ -1,4 +1,8 @@
 .main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     background-color: blue;
     width: 100%;
     min-height: 200px;

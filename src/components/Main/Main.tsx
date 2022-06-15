@@ -11,6 +11,7 @@ interface iProps {}
 const Main = ({}:iProps): JSX.Element => {
   const [word, setWord] = useState<string[]>([])
   const [previousWords, setPreviousWords] = useState<string[]>([])
+  const [guessedWord] = useState<string>('arian')
 
   const addLetter = (letter: string): void => {
     setWord( (prev) => {
@@ -72,7 +73,7 @@ const Main = ({}:iProps): JSX.Element => {
     <div className={styles.main}>
       <WordTable>
         {previousWords.map( (i, index) => {
-          return <SubmittedWord key={Math.random()} word={i} />
+          return <SubmittedWord guessedWord={guessedWord} key={Math.random()} word={i} />
         })}
       </WordTable>
       <Keyboard onClick={handleKeyPress}>{
