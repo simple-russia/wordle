@@ -1,1 +1,2 @@
-export * from './WordTable'
+export * from './WordTable';
+export * from './SubmittedWord';

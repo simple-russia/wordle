@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import styles from './main.module.css';
 
 import { Keyboard, keyNames, KeyboardRow } from 'src/components/Keyboard';
-import { WordTable } from 'src/components/WordTable';
+import { WordTable, SubmittedWord } from 'src/components/WordTable';
 
 const MAX_WORD_LETTERS = 5;
 
@@ -29,11 +29,20 @@ const Main = ({}:iProps): JSX.Element => {
   }
 
   const submitWord = (): void => {
-    if (word.length !== 5) {
+    if (word.length !== MAX_WORD_LETTERS) {
       console.error('can\'t submit');
       return ;
     }
-    console.log('submited!')
+    
+    // console.log('submited!')
+    setPreviousWords( prev => {
+      const newWords = [...prev];
+      const newWord = word.join('');
+      newWords.push(newWord);
+
+      return newWords;
+    })
+    setWord([]);
   }
 
   const callKeyHandler = (key: string): void => {
@@ -61,7 +70,11 @@ const Main = ({}:iProps): JSX.Element => {
 
   return (
     <div className={styles.main}>
-      <WordTable />
+      <WordTable>
+        {previousWords.map( (i, index) => {
+          return <SubmittedWord key={Math.random()} word={i} />
+        })}
+      </WordTable>
       <Keyboard onClick={handleKeyPress}>{
         keyNames.map((row: string[], index: number) => {
           return <KeyboardRow key={index} keys={row} />
