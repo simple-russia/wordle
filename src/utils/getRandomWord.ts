@@ -1,5 +1,6 @@
 const word_list: string[] = [
-    'jumps', 'beach', 'drums', 'stuff', 'igloo',
+    'cream', 'tiger', 'drums', 'stuff', 'igloo',
+    'ranch', 'prove', 'breed', 'shave', 'broom',
 ]
 
 function getRandomWord() {
