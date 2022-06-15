@@ -1,7 +1,9 @@
 body {
     margin: 0;
-    font-family: Arial;
     background-color: var(--main-color);
+
+    font-family: Arial;
+    color: var(--main-text-color)
 }
 
 * {
