@@ -1,5 +1,7 @@
 import React from "react";
 import { Layout } from "src/components/Layout";
+import { Navbar } from "src/components/Navbar";
+import { Main } from "src/components/Main";
 
 import './styles/base.css';
 import './styles/variables.css';
@@ -7,10 +9,11 @@ import './styles/variables.css';
 
 type iProps = {}
 
-const App = ({}: iProps) => {
+const App = ({}: iProps): JSX.Element => {
     return (
         <Layout>
-            <p>Hello world!</p>
+            <Navbar />
+            <Main />
         </Layout>
     );
 };
