@@ -11,7 +11,7 @@ const KeyboardRow = ({ keys }:iProps): JSX.Element => {
     <div className={styles.main}>
     {
         keys.map((i, index) => {
-            return <span key={index}>{i}</span>
+            return <span data-key={i} key={index}>{i}</span>
         })
     }
     </div>

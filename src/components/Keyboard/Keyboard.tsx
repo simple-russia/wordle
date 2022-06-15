@@ -6,11 +6,12 @@ import { keyNames } from './keys';
  
 interface iProps {
   children: JSX.Element[];
+  onClick: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-const Keyboard = ({children}: iProps): JSX.Element => {
+const Keyboard = ({children, onClick}: iProps): JSX.Element => {
   return (
-    <div className={styles.main}>{children}</div>
+    <div className={styles.main} onClick={onClick}>{children}</div>
   )
 };
 
