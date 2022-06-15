@@ -7,7 +7,7 @@ interface iProps {}
 const Navbar = ({}:iProps): JSX.Element => {
   return (
     <div className={styles.main}>
-      <img src={Logo}></img>
+      <img draggable="false" src={Logo}></img>
     </div>
   )
 };
