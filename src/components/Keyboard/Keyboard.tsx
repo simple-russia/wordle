@@ -4,20 +4,13 @@ import { KeyboardRow } from './KeyboardRow';
 import { keyNames } from './keys';
 
  
-interface iProps {}
+interface iProps {
+  children: JSX.Element[];
+}
 
-const Keyboard = ({}:iProps): JSX.Element => {
-
-  
-
+const Keyboard = ({children}: iProps): JSX.Element => {
   return (
-    <div className={styles.main}>
-    {
-      keyNames.map((row, index) => {
-        return <KeyboardRow key={index} keys={row} />
-      })
-    }      
-    </div>
+    <div className={styles.main}>{children}</div>
   )
 };
 

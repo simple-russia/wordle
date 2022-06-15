@@ -17,21 +17,12 @@
     text-transform: uppercase;
     user-select: none;
     cursor: pointer;
-    background-color: rgb(146, 146, 146);
+    background-color: rgb(132, 132, 132);
 }
 
-@keyframes keyboardKeyShine {
-    from {
-        filter: brightness(1.07);
-    }
-    50% {
-        filter: brightness(1.14);
-    }
-    to {
-        filter: brightness(1.07);
-    }
-}
 .main > span:hover {
-    /* background-color: rgb(136, 136, 136); */
-    animation: keyboardKeyShine 700ms linear infinite;
+    filter: brightness(1.1)
+}
+.main > span:active {
+    filter: brightness(0.8)
 }
