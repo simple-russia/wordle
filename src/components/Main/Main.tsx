@@ -28,11 +28,20 @@ const Main = ({}:iProps): JSX.Element => {
     })
   }
 
+  const submitWord = (): void => {
+    if (word.length !== 5) {
+      console.error('can\'t submit');
+      return ;
+    }
+    console.log('submited!')
+  }
+
   const callKeyHandler = (key: string): void => {
     if (key === null) {
       return ;
     }
     if (key === 'enter') {
+      submitWord();
       return ; 
     }
     if (key === 'delete') {
