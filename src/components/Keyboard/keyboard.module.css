@@ -1,5 +1,11 @@
 .main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
     width: 100%;
+    box-sizing: border-box;
+    padding: 0 30px;
+    
     background-color: red;
-    min-height: 100px;
 }

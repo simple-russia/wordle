@@ -4,4 +4,4 @@ const keys = [
     ['enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'delete'],
 ]
 
-export { keys }
+export { keys as keyNames }
