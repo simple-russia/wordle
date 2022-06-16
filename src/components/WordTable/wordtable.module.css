@@ -1,4 +1,5 @@
 .main {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--cell-gap);
@@ -6,3 +7,11 @@
     width: 100%;
     min-height: 200px;
 }
+
+/* .main::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, grey, transparent)
+} */

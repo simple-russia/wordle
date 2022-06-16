@@ -29,8 +29,9 @@ const Main = ({}:iProps): JSX.Element => {
   const isLost = gameStatus === gameStatuses.LOST;
   const isWon = gameStatus === gameStatuses.WON;
   const isPlaying = gameStatus === gameStatuses.PLAYING;
+  const activeWords = isPlaying ? 1 : 0;
 
-  let EMPTY_ROWS = MAX_WORD_ROWS - 1 - previousWords.length;
+  let EMPTY_ROWS = MAX_WORD_ROWS - (activeWords) - previousWords.length;
   EMPTY_ROWS = EMPTY_ROWS < 0 ? 0 : EMPTY_ROWS; 
 
 
@@ -47,7 +48,6 @@ const Main = ({}:iProps): JSX.Element => {
     console.log(newGuessedWord);
     
     setGuessedWord(newGuessedWord);
-    setGuessedWord('clown');
     setGameStatus(gameStatuses.PLAYING);
   }
 
@@ -97,6 +97,9 @@ const Main = ({}:iProps): JSX.Element => {
 
     if (word.join('') === guessedWord) {
       setGameStatus(gameStatuses.WON);
+    } else if (previousWords.length === MAX_WORD_ROWS - 1) {
+      setGameStatus(gameStatuses.LOST);
+      console.log('you lost!')
     }
   }
 
@@ -134,7 +137,7 @@ const Main = ({}:iProps): JSX.Element => {
         {previousWords.map( (i, index) => {
           return <SubmittedWord guessedWord={guessedWord} key={Math.random()} word={i} />
         })}
-        <ActiveWord word={word} key={Math.random()} />
+        {isPlaying && <ActiveWord word={word} key={Math.random()} />}
         {
         !!EMPTY_ROWS && Array.from<string>({ length: EMPTY_ROWS }).map( _ => {
           return <EmptyWord key={Math.random()} />
