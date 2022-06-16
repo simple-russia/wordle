@@ -92,7 +92,7 @@ const Main = ({}:iProps): JSX.Element => {
       const animation = shake(activeWordRef.current);
       animation.play();
 
-      console.error('can\'t submit', activeWordRef.current);
+      console.error('can\'t submit');
       
       return ;
     }
