@@ -3,22 +3,59 @@ import styles from './main.module.css';
 
 import { Keyboard, keyNames, KeyboardRow } from 'src/components/Keyboard';
 import { WordTable, SubmittedWord, ActiveWord, EmptyWord } from 'src/components/WordTable';
+import { getRandomWord } from "src/utils";
 
 
 const MAX_WORD_LETTERS = 5;
 const MAX_WORD_ROWS = 6;
+
+enum gameStatuses {
+  LOADING = 'loading',
+  PLAYING = 'playing',
+  LOST = 'lost',
+  WON = 'won',
+}
+
 
 interface iProps {}
 
 const Main = ({}:iProps): JSX.Element => {
   const [word, setWord] = useState<string[]>([])
   const [previousWords, setPreviousWords] = useState<string[]>([])
-  const [guessedWord] = useState<string>('clown')
+  const [guessedWord, setGuessedWord] = useState<string>('');
+  const [gameStatus, setGameStatus] = useState<gameStatuses>(gameStatuses.LOADING);
+
+  const isLoading = gameStatus === gameStatuses.LOADING;
+  const isLost = gameStatus === gameStatuses.LOST;
+  const isWon = gameStatus === gameStatuses.WON;
+  const isPlaying = gameStatus === gameStatuses.PLAYING;
 
   let EMPTY_ROWS = MAX_WORD_ROWS - 1 - previousWords.length;
   EMPTY_ROWS = EMPTY_ROWS < 0 ? 0 : EMPTY_ROWS; 
 
+
+  useEffect( () => {
+    console.log('game status is now', gameStatus)
+  }, [gameStatus])
+
+  useEffect( () => {
+    setNewGuessedWord();
+  }, [])
+
+  const setNewGuessedWord = (): void => {
+    const newGuessedWord = getRandomWord();
+    console.log(newGuessedWord);
+    
+    setGuessedWord(newGuessedWord);
+    setGuessedWord('clown');
+    setGameStatus(gameStatuses.PLAYING);
+  }
+
   const addLetter = (letter: string): void => {
+    if (!isPlaying) {
+      return ;
+    }
+
     setWord( (prev) => {
       const newWord = [...prev]
       newWord.push(letter);
@@ -27,6 +64,10 @@ const Main = ({}:iProps): JSX.Element => {
   }
 
   const removeLetter = (): void => {
+    if (!isPlaying) {
+      return ;
+    }
+
     setWord( prev => {
       const newWord = [...prev];
       newWord.pop();
@@ -35,6 +76,10 @@ const Main = ({}:iProps): JSX.Element => {
   }
 
   const submitWord = (): void => {
+    if (!isPlaying) {
+      return ;
+    }
+
     if (word.length !== MAX_WORD_LETTERS) {
       console.error('can\'t submit');
       return ;
@@ -49,9 +94,17 @@ const Main = ({}:iProps): JSX.Element => {
       return newWords;
     })
     setWord([]);
+
+    if (word.join('') === guessedWord) {
+      setGameStatus(gameStatuses.WON);
+    }
   }
 
   const callKeyHandler = (key: string): void => {
+    if (!isPlaying) {
+      return ;
+    }
+
     if (key === null) {
       return ;
     }
@@ -74,7 +127,6 @@ const Main = ({}:iProps): JSX.Element => {
     callKeyHandler(key);
   }
 
-  console.log(`number of empty rows: ${EMPTY_ROWS}`)
 
   return (
     <div className={styles.main}>
