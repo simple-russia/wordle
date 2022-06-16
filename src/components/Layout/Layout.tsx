@@ -8,12 +8,6 @@ type iProps = {
 }
 
 const Layout = ({children}: iProps) => {
-    
-    useEffect( () => {
-        const word = getRandomWord();
-        console.log(word);
-    }, [])
-
     return <div className={styles.main}>{children}</div>;
 };
 

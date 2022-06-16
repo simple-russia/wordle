@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react"
 import styles from './main.module.css';
 
 import { Keyboard, keyNames, KeyboardRow } from 'src/components/Keyboard';
-import { WordTable, SubmittedWord } from 'src/components/WordTable';
+import { WordTable, SubmittedWord, ActiveWord, EmptyWord } from 'src/components/WordTable';
+
 
 const MAX_WORD_LETTERS = 5;
+const MAX_WORD_ROWS = 6;
 
 interface iProps {}
 
@@ -12,6 +14,9 @@ const Main = ({}:iProps): JSX.Element => {
   const [word, setWord] = useState<string[]>([])
   const [previousWords, setPreviousWords] = useState<string[]>([])
   const [guessedWord] = useState<string>('arian')
+
+  let EMPTY_ROWS = MAX_WORD_ROWS - 1 - previousWords.length;
+  EMPTY_ROWS = EMPTY_ROWS < 0 ? 0 : EMPTY_ROWS; 
 
   const addLetter = (letter: string): void => {
     setWord( (prev) => {
@@ -69,12 +74,20 @@ const Main = ({}:iProps): JSX.Element => {
     callKeyHandler(key);
   }
 
+  console.log(`number of empty rows: ${EMPTY_ROWS}`)
+
   return (
     <div className={styles.main}>
       <WordTable>
         {previousWords.map( (i, index) => {
           return <SubmittedWord guessedWord={guessedWord} key={Math.random()} word={i} />
         })}
+        <ActiveWord word={word} key={Math.random()} />
+        {
+        !!EMPTY_ROWS && Array.from<string>({ length: EMPTY_ROWS }).map( _ => {
+          return <EmptyWord key={Math.random()} />
+        })
+        }
       </WordTable>
       <Keyboard onClick={handleKeyPress}>{
         keyNames.map((row: string[], index: number) => {
@@ -85,4 +98,4 @@ const Main = ({}:iProps): JSX.Element => {
   )
 };
 
-export { Main }
+export { Main, MAX_WORD_LETTERS, MAX_WORD_ROWS }
