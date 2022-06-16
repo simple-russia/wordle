@@ -89,11 +89,20 @@ const Main = ({}:iProps): JSX.Element => {
     }
 
     if (word.length !== MAX_WORD_LETTERS) {
-      const animation = shake(activeWordRef.current);
-      animation.play();
+      const shakeAnimation = shake(activeWordRef.current);
+      shakeAnimation.play();
 
-      console.error('can\'t submit');
+      console.error(`can\'t submit: the word has to be 5 letters long, not ${word.length}.`);
       
+      return ;
+    }
+
+    if (previousWords.includes(word.join(''))) {
+      const shakeAnimation = shake(activeWordRef.current);
+      shakeAnimation.play();
+
+      console.error(`You have submitted this word (${word.join('')})`);
+
       return ;
     }
     
