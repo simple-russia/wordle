@@ -5,14 +5,16 @@ import { concatClassnames as p } from 'src/utils';
 
 interface iProps {
     word: string[];
+    activeWordRef: null;
+    
 }
 
-const ActiveWord = ({word}:iProps): JSX.Element => {
+const ActiveWord = ({word, activeWordRef}:iProps): JSX.Element => {
 
   word = (word.concat(['', '', '', '', ''])).slice(0, 5)
 
   return (
-    <div className={styles.letter_row}>
+    <div ref={activeWordRef} className={styles.letter_row}>
     {
         word.map( (i, index) => {
             return <span className={p(styles.letter_cell, styles.unsubmitted)} key={index}>{i}</span>

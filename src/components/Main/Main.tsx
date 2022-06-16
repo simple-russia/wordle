@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styles from './main.module.css';
 
 import { Keyboard, keyNames, KeyboardRow } from 'src/components/Keyboard';
 import { WordTable, SubmittedWord, ActiveWord, EmptyWord } from 'src/components/WordTable';
 import { getRandomWord } from "src/utils";
+import { shake } from "src/utils/animations";
 
+const LOG_CSS_COMMON = 'font-family: arial; text-transform: uppercase; font-size: 16px; background: #222;';
+const YOU_LOST_LOG_CSS = 'color: #b00;' + LOG_CSS_COMMON;
+const YOU_WON_LOG_CSS = 'color: #bada55;' + LOG_CSS_COMMON;
+const INITIAL_WORD_LOG_CSS = 'color: #fff;' + LOG_CSS_COMMON;
+const GAME_STATUS_LOG_CSS = 'color: #999;' + LOG_CSS_COMMON;
 
 const MAX_WORD_LETTERS = 5;
 const MAX_WORD_ROWS = 6;
@@ -25,6 +31,8 @@ const Main = ({}:iProps): JSX.Element => {
   const [guessedWord, setGuessedWord] = useState<string>('');
   const [gameStatus, setGameStatus] = useState<gameStatuses>(gameStatuses.LOADING);
 
+  const activeWordRef = useRef(null);
+
   const isLoading = gameStatus === gameStatuses.LOADING;
   const isLost = gameStatus === gameStatuses.LOST;
   const isWon = gameStatus === gameStatuses.WON;
@@ -36,7 +44,7 @@ const Main = ({}:iProps): JSX.Element => {
 
 
   useEffect( () => {
-    console.log('game status is now', gameStatus)
+    console.log(`%cgame status is: ${gameStatus}`, GAME_STATUS_LOG_CSS)
   }, [gameStatus])
 
   useEffect( () => {
@@ -45,7 +53,7 @@ const Main = ({}:iProps): JSX.Element => {
 
   const setNewGuessedWord = (): void => {
     const newGuessedWord = getRandomWord();
-    console.log(newGuessedWord);
+    console.log(`%cGuessed word is: ${newGuessedWord}`, INITIAL_WORD_LOG_CSS);
     
     setGuessedWord(newGuessedWord);
     setGameStatus(gameStatuses.PLAYING);
@@ -81,7 +89,11 @@ const Main = ({}:iProps): JSX.Element => {
     }
 
     if (word.length !== MAX_WORD_LETTERS) {
-      console.error('can\'t submit');
+      const animation = shake(activeWordRef.current);
+      animation.play();
+
+      console.error('can\'t submit', activeWordRef.current);
+      
       return ;
     }
     
@@ -97,9 +109,10 @@ const Main = ({}:iProps): JSX.Element => {
 
     if (word.join('') === guessedWord) {
       setGameStatus(gameStatuses.WON);
+      console.log('%cyou won!', YOU_WON_LOG_CSS)
     } else if (previousWords.length === MAX_WORD_ROWS - 1) {
       setGameStatus(gameStatuses.LOST);
-      console.log('you lost!')
+      console.log('%cyou lost!', YOU_LOST_LOG_CSS)
     }
   }
 
@@ -137,7 +150,7 @@ const Main = ({}:iProps): JSX.Element => {
         {previousWords.map( (i, index) => {
           return <SubmittedWord guessedWord={guessedWord} key={Math.random()} word={i} />
         })}
-        {isPlaying && <ActiveWord word={word} key={Math.random()} />}
+        {isPlaying && <ActiveWord activeWordRef={activeWordRef} word={word} key={Math.random()} />}
         {
         !!EMPTY_ROWS && Array.from<string>({ length: EMPTY_ROWS }).map( _ => {
           return <EmptyWord key={Math.random()} />

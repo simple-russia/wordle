@@ -1,4 +1,5 @@
 .letter_row {
+    position: relative;
     display: flex;
     justify-content: center;
     gap: var(--cell-gap);
