@@ -1,6 +1,7 @@
 import React from "react"
 import styles from './lettercells.module.css';
 import {MAX_WORD_LETTERS} from 'src/components/Main';
+import { concatClassnames as p } from 'src/utils';
 
 interface iProps {}
 
@@ -10,7 +11,7 @@ const EmptyWord = ({}:iProps): JSX.Element => {
     <div className={styles.letter_row}>
     {
         Array.from({length: MAX_WORD_LETTERS}).map( (_, index) => {
-            return <span className={styles.letter_cell} key={index}></span>
+            return <span className={p(styles.letter_cell, styles.unsubmitted)} key={index}></span>
         })
     }
     </div>

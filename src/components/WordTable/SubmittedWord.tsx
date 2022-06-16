@@ -9,6 +9,7 @@ const letterTest = (guessedWord: string, letter: string, index: number): string 
   if (guessedWord.includes(letter)) {
     return styles.contains;
   }
+  return styles.wrong
 }
 
 interface iProps {

@@ -1,7 +1,7 @@
 .letter_row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: var(--cell-gap);
 }
 
 .letter_cell {
@@ -9,17 +9,25 @@
     justify-content: center;
     align-items: center;
 
-    width: 50px;
-    height: 50px;
-    background-color: black;
+    width: var(--cell-size);
+    height: var(--cell-size);
 
     user-select: none;
 }
 
 .right_place {
-    background-color: green;
+    background-color: var(--cell-right);
 }
 
 .contains {
-    background-color: yellow;
+    background-color: var(--cell-contains);
+}
+
+.wrong {
+    background-color: var(--cell-wrong);
+}
+
+.unsubmitted {
+    background-color: black;
+    box-shadow: inset 0 0 0 2px var(--cell-border);
 }

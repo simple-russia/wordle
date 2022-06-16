@@ -1,7 +1,14 @@
 :root {
     /* variables here */
-    --main-color: rgb(24, 22, 22);
+    --main-color: #121213;;
     --border-color: rgb(173, 147, 147);
 
     --main-text-color: white;
+
+    --cell-size: 60px;
+    --cell-gap: 6px;
+    --cell-right: #538d4e;;
+    --cell-contains: #b59f3b;
+    --cell-wrong: #3a3a3c;
+    --cell-border: #3a3a3c;
 }
