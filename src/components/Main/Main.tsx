@@ -13,7 +13,7 @@ interface iProps {}
 const Main = ({}:iProps): JSX.Element => {
   const [word, setWord] = useState<string[]>([])
   const [previousWords, setPreviousWords] = useState<string[]>([])
-  const [guessedWord] = useState<string>('arian')
+  const [guessedWord] = useState<string>('clown')
 
   let EMPTY_ROWS = MAX_WORD_ROWS - 1 - previousWords.length;
   EMPTY_ROWS = EMPTY_ROWS < 0 ? 0 : EMPTY_ROWS; 

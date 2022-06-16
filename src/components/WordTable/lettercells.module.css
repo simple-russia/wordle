@@ -12,6 +12,11 @@
     width: var(--cell-size);
     height: var(--cell-size);
 
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 30px;
+    
     user-select: none;
 }
 
