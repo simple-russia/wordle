@@ -1,6 +1,10 @@
 const word_list: string[] = [
     'cream', 'tiger', 'drums', 'stuff', 'igloo',
     'ranch', 'prove', 'breed', 'shave', 'broom',
+    'shrek', 'alarm', 'minus', 'minor', 'react',
+    'codes', 'swear', 'mails', 'meets', 'croak',
+    'clown', 'boost', 'music', 'track', 'disco',
+    'dance', 'dread', 'corny', 'chess', 'moral',
 ]
 
 function getRandomWord() {
