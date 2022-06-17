@@ -11,4 +11,8 @@
     --cell-contains: #b59f3b;
     --cell-wrong: #3a3a3c;
     --cell-border: #3a3a3c;
+
+    --button-bg-color: #4a72b3;
+    --button-bg-shadow-color: #2d3c9e;
+    --button-text-color: #fff;
 }

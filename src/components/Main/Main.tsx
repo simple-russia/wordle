@@ -4,6 +4,8 @@ import styles from './main.module.css';
 
 import { Keyboard, keyNames, KeyboardRow } from 'src/components/Keyboard';
 import { WordTable, SubmittedWord, ActiveWord, EmptyWord } from 'src/components/WordTable';
+import { ResetBlock } from "./ResetBlock";
+
 import { getRandomWord } from "src/utils";
 import { shake } from "src/utils/animations";
 import { fetchWordExists } from "src/utils/redux/thunks/wordExists";
@@ -45,22 +47,24 @@ const Main = ({}:iProps): JSX.Element => {
   let EMPTY_ROWS = MAX_WORD_ROWS - (activeWords) - previousWords.length;
   EMPTY_ROWS = EMPTY_ROWS < 0 ? 0 : EMPTY_ROWS; 
 
-
   useEffect( () => {
     console.log(`%cgame status is: ${gameStatus}`, GAME_STATUS_LOG_CSS)
   }, [gameStatus])
 
   useEffect( () => {
-    setNewGuessedWord();
+    gameReset();
   }, [])
 
-  const setNewGuessedWord = (): void => {
+  const gameReset = () => {
     const newGuessedWord = getRandomWord();
-    console.log(`%cGuessed word is: ${newGuessedWord}`, INITIAL_WORD_LOG_CSS);
+    console.log(`%cStarting a new game. The guessed word is: ${newGuessedWord}`, INITIAL_WORD_LOG_CSS);
     
+    setPreviousWords([]);
+    setWord([]);
     setGuessedWord(newGuessedWord);
     setGameStatus(gameStatuses.PLAYING);
   }
+
 
   const addLetter = (letter: string): void => {
     if (!isPlaying) {
@@ -185,6 +189,7 @@ const Main = ({}:iProps): JSX.Element => {
         })
         }
       </WordTable>
+      <ResetBlock onClick={gameReset} />
       <Keyboard onClick={handleKeyPress}>{
         keyNames.map((row: string[], index: number) => {
           return <KeyboardRow key={index} keys={row} />
