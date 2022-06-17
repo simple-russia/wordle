@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react"
+import { useDispatch } from "react-redux";
 import styles from './main.module.css';
 
 import { Keyboard, keyNames, KeyboardRow } from 'src/components/Keyboard';
 import { WordTable, SubmittedWord, ActiveWord, EmptyWord } from 'src/components/WordTable';
 import { getRandomWord } from "src/utils";
 import { shake } from "src/utils/animations";
+import { fetchWordExists } from "src/utils/redux/thunks/wordExists";
 
 const LOG_CSS_COMMON = 'font-family: arial; text-transform: uppercase; font-size: 16px; background: #222;';
 const YOU_LOST_LOG_CSS = 'color: #b00;' + LOG_CSS_COMMON;
@@ -30,6 +32,7 @@ const Main = ({}:iProps): JSX.Element => {
   const [previousWords, setPreviousWords] = useState<string[]>([])
   const [guessedWord, setGuessedWord] = useState<string>('');
   const [gameStatus, setGameStatus] = useState<gameStatuses>(gameStatuses.LOADING);
+  const dispatch = useDispatch();
 
   const activeWordRef = useRef(null);
 
@@ -64,6 +67,9 @@ const Main = ({}:iProps): JSX.Element => {
       return ;
     }
 
+    const shakeAnimation = shake(activeWordRef.current);
+    word.length === 5 ? shakeAnimation.play() : null;
+
     setWord( (prev) => {
       const newWord = [...prev]
       newWord.push(letter);
@@ -76,6 +82,9 @@ const Main = ({}:iProps): JSX.Element => {
       return ;
     }
 
+    const shakeAnimation = shake(activeWordRef.current);
+    word.length === 0 ? shakeAnimation.play() : null;
+
     setWord( prev => {
       const newWord = [...prev];
       newWord.pop();
@@ -83,13 +92,15 @@ const Main = ({}:iProps): JSX.Element => {
     })
   }
 
-  const submitWord = (): void => {
+  const submitWord = async () => {
     if (!isPlaying) {
       return ;
     }
 
+    const shakeAnimation = shake(activeWordRef.current);
+    const activeWord = word.join('')
+
     if (word.length !== MAX_WORD_LETTERS) {
-      const shakeAnimation = shake(activeWordRef.current);
       shakeAnimation.play();
 
       console.error(`can\'t submit: the word has to be 5 letters long, not ${word.length}.`);
@@ -97,26 +108,34 @@ const Main = ({}:iProps): JSX.Element => {
       return ;
     }
 
-    if (previousWords.includes(word.join(''))) {
-      const shakeAnimation = shake(activeWordRef.current);
+    if (previousWords.includes(activeWord)) {
       shakeAnimation.play();
 
-      console.error(`You have submitted this word (${word.join('')})`);
+      console.error(`You have submitted this word (${activeWord})`);
 
       return ;
     }
     
+    const doesExist = await dispatch(fetchWordExists(activeWord));
+    if (!doesExist) {
+      shakeAnimation.play();
+
+      console.error(`The word (${activeWord}) does not exist!`);
+
+      return ;
+    }
+
     // console.log('submited!')
     setPreviousWords( prev => {
       const newWords = [...prev];
-      const newWord = word.join('');
+      const newWord = activeWord;
       newWords.push(newWord);
 
       return newWords;
     })
     setWord([]);
 
-    if (word.join('') === guessedWord) {
+    if (activeWord === guessedWord) {
       setGameStatus(gameStatuses.WON);
       console.log('%cyou won!', YOU_WON_LOG_CSS)
     } else if (previousWords.length === MAX_WORD_ROWS - 1) {
