@@ -26,3 +26,11 @@
 .main > span:active {
     filter: brightness(0.8)
 }
+
+.right {
+    background-color: var(--cell-right) !important;
+}
+
+.wrong {
+    background-color: var(--cell-wrong) !important;
+}

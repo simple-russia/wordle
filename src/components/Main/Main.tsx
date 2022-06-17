@@ -192,7 +192,7 @@ const Main = ({}:iProps): JSX.Element => {
       <ResetBlock onClick={gameReset} />
       <Keyboard onClick={handleKeyPress}>{
         keyNames.map((row: string[], index: number) => {
-          return <KeyboardRow key={index} keys={row} />
+          return <KeyboardRow key={index} keys={row} word={guessedWord} previousWords={previousWords} />
         })
       }</Keyboard>
     </div>
