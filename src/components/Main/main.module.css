@@ -1,8 +1,7 @@
 .main {
-    /* background-color: red; */
-
     margin: 60px auto 0;
-
+    padding-top: 30px;
+    min-height: calc(100vh - 60px);
     width: min(100vw, 600px);
-    min-height: 500px;
+    box-sizing: border-box;
 }
